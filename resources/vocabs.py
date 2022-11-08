@@ -50,3 +50,11 @@ def update_vocab(id):
         message = 'vocab updated successfully'
     ), 200
 
+@vocab.route('/<id>', methods=['DELETE'])
+def delete_vocab(id):
+    query = models.Vocab.delete().where(models.Vocab.id==id)
+    query.execute()
+    return jsonify(
+        message = 'vocab deleted succesfully',
+        status =200
+    ), 200
