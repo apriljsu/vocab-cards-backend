@@ -19,7 +19,22 @@ def register():
         user = models.User.create(**payload)
         login_user(user)
         user_dict = model_to_dict(user)
-        print(user_dict)
+        # print(user_dict)
         del user_dict['password']
-        return jsonify(data = user_dict, status = {'code': 201, 'message': 'success'})
+        return jsonify(data = user_dict, status = {'code': 201, 'message': 'success'}), 200
 
+@user.route('/login', methods = ['POST'])
+def login():
+    payload = request.get_json()
+    try:
+        user = models.User.get(models.User.email == payload['email'])
+        user_dict = model_to_dict(user)
+        if(check_password_hash(user_dict['password'], payload['password'])):
+            del user_dict['password']
+            login_user(user)
+            # print(user, 'this is user')
+            return jsonify(data = user_dict, status={'code':200, 'message': 'success'}), 200
+        else:
+            return jsonify(data = {}, status={'code':401, 'message': 'email or password is not correct'}), 401
+    except models.DoesNotExist:
+        return jsonify(data = {}, status={'code':401, 'message': 'email or password is not correct'}), 401

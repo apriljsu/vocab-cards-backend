@@ -6,9 +6,9 @@ from flask_cors import CORS
 from resources.vocabs import vocab
 
 #No.6 continue here
-from flask_login import login_manager
+from flask_login import LoginManager
 from resources.users import user
-login_manager = login_manager()
+login_manager = LoginManager()
 
 
 
