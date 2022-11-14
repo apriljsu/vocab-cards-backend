@@ -2,14 +2,15 @@
 from peewee import *
 import datetime
 
-# No. 4 starts
+# No. 4 starts : import usermixin for user model
 from flask_login import UserMixin
 
 
-#No.2 continue
+#No.2 continue: set up vocabs model
 DATABASE = SqliteDatabase('vocabs.sqlite')
-class User(UserMixin, Model):
-    username = CharField(unique = True)
+
+#No. 5 start: set up user model
+class User(UserMixin, Model):   
     email = CharField(unique = True)
     password = CharField()
     first_name = CharField()
@@ -17,6 +18,7 @@ class User(UserMixin, Model):
     class Meta:
         database = DATABASE
 
+#No.2 continue
 class Vocab(Model):
     vocab_chinese = CharField(unique=True)
     vocab_english = CharField(unique=True)
