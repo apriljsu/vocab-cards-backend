@@ -39,6 +39,7 @@ def login():
     except models.DoesNotExist:
         return jsonify(data = {}, status={'code':401, 'message': 'email or password is not correct'}), 401
 
+#no.7 check current user or log out
 @user.route('/logged_in_user', methods = ['GET'])
 def get_logged_in_user():
     print(current_user)
@@ -56,3 +57,12 @@ def users_index():
         'message': f'successfully found {len(user_dicts)} users',
         'status':200
     }), 200
+
+@user.route('/logout', methods = ['GET'])
+def logout():
+    logout_user()
+    return jsonify(
+        data={},
+        message = 'Successfully logged out',
+        status = 200
+    ), 200
