@@ -23,4 +23,3 @@ def register():
         del user_dict['password']
         return jsonify(data = user_dict, status = {'code': 201, 'message': 'success'})
 
-@user
