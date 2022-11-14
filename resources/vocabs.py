@@ -9,24 +9,29 @@ vocab = Blueprint('vocabs', 'vocab')
 
 @vocab.route('/', methods=['GET'])
 def get_all_vocabs():
-    try: 
-        vocabs = [model_to_dict(vocab) for vocab in models.Vocab.select()]
-        print(vocabs)
-        return jsonify(data=vocabs, status={'code':200, 'message':'Success'})
-    except models.DoesNotExist:
-        return jsonify(data={}, status={'code':401, 'message':'Error'})
+    #part of NO.7, connecting current user to vocabs
+    current_user_vocab_dicts = [model_to_dict(vocab) for vocab in current_user.vocabs]
+    for vocab_dict in current_user_vocab_dicts:
+        vocab_dict['user'].pop('password')
+
+    return jsonify({
+        'data':current_user_vocab_dicts,
+        'message':f'successfully found {len(current_user_vocab_dicts)} vocabs',
+        'status':200
+    }), 200
 
 @vocab.route('/', methods=['POST'])
 def create_vocab():
     payload = request.get_json() 
     # print(type(payload),'payload type') #payload type is class 'dict'
     # print(payload, 'payload')#only shows the vocab card added without ID
-    vocab = models.Vocab.create(**payload)
+    new_vocab = models.Vocab.create(vocab_chinese = payload['vocab_chinese'], vocab_english = payload['vocab_english'],category = payload['category'], set = payload['set'], user = current_user.id) # part of No.7, current user
     # print(type(vocab)) # <model:Vocab>
     # print(vocab.__dict__)
     # print(dir(vocab)) #The dir() function returns all properties and methods of the specified object, without the values.
-    print(model_to_dict(vocab),'model to dict')
-    vocab_dict=model_to_dict(vocab)
+    print(model_to_dict(new_vocab),'model to dict')
+    vocab_dict=model_to_dict(new_vocab)
+    vocab_dict['user'].pop('password') #part of no.7
     return jsonify(data=vocab_dict, status={'code':201,'message':'Success'} )
 
 @vocab.route('/<id>', methods=['GET'])
