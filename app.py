@@ -10,19 +10,22 @@ from flask_login import LoginManager
 from resources.users import user
 login_manager = LoginManager()
 
-
+#No. 8 set up env.
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # No.2 continue
 import models
 
 
 DEBUG = True # print nice helpful error msgs since we are in development
-PORT = 8000
+PORT = os.environ.get("PORT") # part of No.8
 #initialize an instance of the Flask class, which starts the website.THIS IS ANALOGOUS TO :const app = express ()
 app = Flask(__name__)
 
 #no.6 continue here
-app.secret_key = 'kdosjfiosdjfd'
+app.secret_key = os.environ.get('APP_SECRET')
 login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(userid):
