@@ -14,7 +14,7 @@ class User(UserMixin, Model):
     email = CharField(unique = True)
     password = CharField()
     first_name = CharField()
-    last_name = CharField()
+    last_name = CharField()    
     class Meta:
         database = DATABASE
 
@@ -24,6 +24,7 @@ class Vocab(Model):
     vocab_english = CharField(unique=True)
     category = CharField()
     set = IntegerField()
+    user = ForeignKeyField(User, backref='vocabs')#7 link user to vocab
     class Meta:
         database = DATABASE
 

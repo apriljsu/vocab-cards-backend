@@ -2,6 +2,8 @@
 import models
 from flask import Blueprint, request, jsonify
 from playhouse.shortcuts import model_to_dict
+#no. 7 start: link user to vocabs
+from flask_login import current_user 
 
 vocab = Blueprint('vocabs', 'vocab')
 
