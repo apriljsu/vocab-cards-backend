@@ -38,7 +38,7 @@ def create_vocab():
     payload = request.get_json() 
     # print(type(payload),'payload type') #payload type is class 'dict'
     # print(payload, 'payload')#only shows the vocab card added without ID
-    new_vocab = models.Vocab.create(vocab_chinese = payload['vocab_chinese'], vocab_english = payload['vocab_english'],category = payload['category'], set = payload['set'], user = current_user.id) # part of No.7, current user
+    new_vocab = models.Vocab.create(vocab_chinese = payload['vocab_chinese'], vocab_english = payload['vocab_english'],category = payload['category'], english_to_chinese = payload['english_to_chinese'], user = current_user.id) # part of No.7, current user
     # print(type(vocab)) # <model:Vocab>
     # print(vocab.__dict__)
     # print(dir(vocab)) #The dir() function returns all properties and methods of the specified object, without the values.
