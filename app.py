@@ -24,6 +24,7 @@ PORT = os.environ.get("PORT") # part of No.8
 #initialize an instance of the Flask class, which starts the website.THIS IS ANALOGOUS TO :const app = express ()
 app = Flask(__name__)
 
+
 #no.6 continue here
 app.secret_key = os.environ.get('APP_SECRET')
 login_manager.init_app(app)
@@ -35,8 +36,11 @@ def load_user(userid):
         return None
 
 # No. 3 continue here
+# CORS(vocab, origins = ['*'], supports_credentials=True)
+# CORS(vocab, origins = ['http://localhost:3000'])
 CORS(vocab, origins = ['http://localhost:3000'], supports_credentials=True)
-app.register_blueprint(vocab, url_prefix= '/api/v1/vocab')
+
+app.register_blueprint(vocab, url_prefix = '/api/v1/vocab')
 
 #no.6 continue here
 CORS(user, origins = ['http://localhost:3000'], supports_credentials=True)

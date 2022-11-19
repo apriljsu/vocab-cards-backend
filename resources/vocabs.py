@@ -10,13 +10,26 @@ vocab = Blueprint('vocabs', 'vocab')
 @vocab.route('/', methods=['GET'])
 def get_all_vocabs():
     #part of NO.7, connecting current user to vocabs
+    print('hit backend vocab')
+    all_vocab = [model_to_dict(vocab) for vocab in models.Vocab.select()]
+    admin_vocab =[]
+    for vocab in all_vocab:
+        if vocab['user']['email'] == 'admin@email.com':    
+            admin_vocab.append(vocab)
+    print(admin_vocab)
+
     current_user_vocab_dicts = [model_to_dict(vocab) for vocab in current_user.vocabs]
-    for vocab_dict in current_user_vocab_dicts:
+    current_and_admin_vocab_dicts = current_user_vocab_dicts + admin_vocab
+    
+    print(current_and_admin_vocab_dicts)
+
+    for vocab_dict in current_and_admin_vocab_dicts:
         vocab_dict['user'].pop('password')
+       
 
     return jsonify({
-        'data':current_user_vocab_dicts,
-        'message':f'successfully found {len(current_user_vocab_dicts)} vocabs',
+        'data':current_and_admin_vocab_dicts,
+        'message':f'successfully found {len(current_and_admin_vocab_dicts)} vocabs',
         'status':200
     }), 200
 
