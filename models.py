@@ -23,7 +23,7 @@ class Vocab(Model):
     vocab_chinese = CharField(unique=True)
     vocab_english = CharField(unique=True)
     category = CharField()
-    set = IntegerField()
+    english_to_chinese = BlobField()
     user = ForeignKeyField(User, backref='vocabs')#7 link user to vocab
     class Meta:
         database = DATABASE
