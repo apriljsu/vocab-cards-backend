@@ -19,7 +19,11 @@ def get_all_vocabs():
     print(admin_vocab)
 
     current_user_vocab_dicts = [model_to_dict(vocab) for vocab in current_user.vocabs]
-    current_and_admin_vocab_dicts = current_user_vocab_dicts + admin_vocab
+    print (current_user.email)
+    if current_user.email == 'admin@email.com': 
+        current_and_admin_vocab_dicts = current_user_vocab_dicts
+    else:
+        current_and_admin_vocab_dicts = current_user_vocab_dicts + admin_vocab
     
     print(current_and_admin_vocab_dicts)
 
