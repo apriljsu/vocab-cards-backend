@@ -45,12 +45,12 @@ def load_user(userid):
 # No. 3 continue here
 # CORS(vocab, origins = ['*'], supports_credentials=True)
 # CORS(vocab, origins = ['http://localhost:3000'])
-CORS(vocab, origins = ['http://localhost:3000'], supports_credentials=True)
+CORS(vocab, origins = ['http://localhost:3000', 'https://vocab-cards-frontend.herokuapp.com'], supports_credentials=True)
 
 app.register_blueprint(vocab, url_prefix = '/api/v1/vocab')
 
 #no.6 continue here
-CORS(user, origins = ['http://localhost:3000'], supports_credentials=True)
+CORS(user, origins = ['http://localhost:3000', 'https://vocab-cards-frontend.herokuapp.com'], supports_credentials=True)
 app.register_blueprint(user, url_prefix = '/api/v1/user')
 
 # we don't want to hog up the SQL connection pool
